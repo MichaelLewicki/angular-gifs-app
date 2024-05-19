@@ -23,7 +23,7 @@ export class SeachBoxComponent {
   constructor(
     private gifsService: GifsService) {}
 
-  searchTag() {
+  public searchTag() {
     const newTag = this.tagInput.nativeElement.value; //capturar input text utilizando @ViewChild para capturar un elemento del DOM
     console.log({ newTag });
     this.gifsService.searchTag(newTag);
