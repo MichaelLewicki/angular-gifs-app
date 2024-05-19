@@ -1,11 +1,12 @@
 <div class="row">
   <!-- col-md-3 = en ventanas medianas ocupa 3 posiciones. col-sm-6 en ventanas muy pequeñas toma 6 posiciones -->
-  <div class="col-md-3 col-sm-6">
+  <div *ngFor="let gif of gifs" class="col-md-3 col-sm-6">
     <div class="card mb-2 text-center bg-dark">
       <!-- TODO: Crear imagen -->
+
       <div class="card-body text-white">
         <p class="card-text">
-          GIF AQUÍ
+          {{ gif.title }}
         </p>
       </div>
 
