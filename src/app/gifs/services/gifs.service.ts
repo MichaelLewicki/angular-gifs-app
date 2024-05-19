@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+import { Gif, GiphyResponse } from '../interfaces/gifs.interfaces';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +11,7 @@ export class GifsService {
   private _tagsHistory: string[] = [];
   private giphyApiKey: string = "qi2VTLE64EbkBcvcZDCcPIvUiZFYls4g";
   private giphyUrl: string = 'http://api.giphy.com/v1/gifs';
+  public gifList: Gif[] = [];
 
 
   constructor( private http: HttpClient ) {
@@ -28,9 +31,10 @@ export class GifsService {
       .set('q', tag);
 
     this.organizeHistory(tag);
-    this.http.get(`${this.giphyUrl}/search`, { params })
+    this.http.get<GiphyResponse>(`${this.giphyUrl}/search`, { params })
     .subscribe(resp => {
-      console.log(resp);
+      this.gifList = resp.data;
+      console.log({ gifs: this.gifList });
     });
 
 
