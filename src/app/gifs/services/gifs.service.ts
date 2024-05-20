@@ -38,8 +38,6 @@ export class GifsService {
       //console.log({ gifs: this.gifList });
     });
 
-
-
     //en este otro caso, haremos una petición http utilizando js, no angular.
     //Para que fetch funcione, hay que agregar a la firma del método:
     //1. async (antes del nombre del método)
@@ -67,6 +65,13 @@ export class GifsService {
 
     //quitar 10 elementos del array a partir del elemento 0 y retornalos
     this._tagsHistory = this.getTagsHistory.splice(0, 10);
+    this.saveTagHistoryIntoLocalStorage();
   };
+
+  private saveTagHistoryIntoLocalStorage(): void {
+    //localStorage no se tiene que importar ni declarar antes de ningún lado
+    //ya que es parte nativa del ecmascript 6 de JS
+    localStorage.setItem('history', JSON.stringify(this._tagsHistory));
+  }
 
 }
