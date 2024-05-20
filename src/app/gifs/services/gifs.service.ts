@@ -15,6 +15,8 @@ export class GifsService {
 
 
   constructor( private http: HttpClient ) {
+    this.loadLocalStorage();
+    console.log('Gifs Service Ready...');
   }
 
   get getTagsHistory() {
@@ -68,10 +70,20 @@ export class GifsService {
     this.saveTagHistoryIntoLocalStorage();
   };
 
-  private saveTagHistoryIntoLocalStorage(): void {
+  private saveTagHistoryIntoLocalStorage() : void {
     //localStorage no se tiene que importar ni declarar antes de ningún lado
     //ya que es parte nativa del ecmascript 6 de JS
     localStorage.setItem('history', JSON.stringify(this._tagsHistory));
+  }
+
+  private loadLocalStorage() : void {
+    if (!localStorage.getItem('history')) return;
+
+    this._tagsHistory = JSON.parse(localStorage.getItem('history')!); //! al fnal de una variable en ts significa not null
+
+    if (this._tagsHistory.length === 0) return;
+
+    this.searchTag(this._tagsHistory[0]);
   }
 
 }
